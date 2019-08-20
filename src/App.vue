@@ -47,7 +47,6 @@
         </li>
       </ul>
     </nav>
-    <p>{{ polyline }}</p>
   </div>
 </template>
 
@@ -60,7 +59,6 @@
         page: 1,
         maxDate: null,
         minDate: null,
-        polyline: 'Sem Linha',
         message: {
           text: 'No activityes loaded.',
           type: 'alert'
@@ -86,7 +84,6 @@
           this.activities = [];
 
           console.log(data);
-          this.polyline = data[0].map.summary_polyline;
 
           data.forEach(activity => {
             let date = moment(new Date(activity.start_date)).format('DD/MM/YYYY');
@@ -109,6 +106,9 @@
       messageClass() {
         return this.message.type == 'error' ? 'alert alert-danger' : 'alert alert-primary';
       }
+    },
+    created() {
+      this.loadActivities(1);
     }
   };
 </script>
