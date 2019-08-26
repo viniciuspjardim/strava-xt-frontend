@@ -1,16 +1,22 @@
 <template>
   <div class="container">
-    <h1>App</h1>
+    <app-header></app-header>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
+  import Header from './components/Header';
+
   export default {
-    
+    components: {
+      appHeader: Header
+    }
   }
 </script>
 
-<style scoped>
-
+<style>
+  body {
+    overflow-y: scroll;
+  }
 </style>
