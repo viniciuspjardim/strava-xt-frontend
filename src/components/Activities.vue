@@ -1,6 +1,6 @@
 <template>
-  <div class="container">
-    <h1>Strava Activities</h1>
+  <div>
+    <h4>Activities</h4>
     <form class="form-inline mt-3">
       <div class="form-group mr-sm-3 mb-2">
         <label class="mr-sm-2">Max date</label>
@@ -11,17 +11,22 @@
         <input class="form-control" type="text" v-model="minDate">
       </div>
       <div class="form-group mx-sm-3 mb-2">
-        <button class="btn btn-primary" @click.prevent="loadActivities(1)">Load Activities</button>
+        <button class="btn btn-primary"
+          @click.prevent="loadActivities(1)">
+          Load Activities
+        </button>
       </div>
     </form>
     <hr>
     <ul class="list-group" v-if="activities.length > 0">
-      <li
+      <router-link
+        tag="li"
+        :to="`/activities/${ activity.id }`"
         class="list-group-item"
-        v-for="(activity, i) in activities"
-        :key="i">
-        {{ activity }}
-      </li>
+        v-for="activity in activities"
+        :key="activity.id">
+        {{ `${ activity.name } - ${ activity.date }` }}
+      </router-link>
     </ul>
     <div v-else :class="messageClass" role="alert">
       {{ message.text }}
@@ -64,7 +69,7 @@
           type: 'alert'
         },
         activities: []
-      }
+      };
     },
     methods: {
       async loadActivities(page) {
@@ -87,7 +92,11 @@
 
           data.forEach(activity => {
             let date = moment(new Date(activity.start_date)).format('DD/MM/YYYY');
-            this.activities.push(`${activity.name} - ${date}`);
+            this.activities.push({
+              id: activity.id,
+              name: activity.name,
+              date
+            });
           });
 
           if(this.activities.length == 0) {
@@ -113,5 +122,8 @@
   };
 </script>
 
-<style>
+<style scoped>
+  li {
+    cursor: pointer;
+  }
 </style>
