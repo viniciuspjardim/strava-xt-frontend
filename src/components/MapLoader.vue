@@ -14,7 +14,7 @@
 </template>
 
 <script>
-  import GoogleMapsApiLoader from "google-maps-api-loader";
+  import GoogleMapsApiLoader from 'google-maps-api-loader';
 
   export default {
     props: {
@@ -29,6 +29,7 @@
     },
     async mounted() {
       const googleMapApi = await GoogleMapsApiLoader({
+        libraries: ['geometry'],
         apiKey: this.apiKey
       });
       this.google = googleMapApi;

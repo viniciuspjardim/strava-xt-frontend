@@ -5,9 +5,7 @@
     class="gmap">
     <template slot-scope="{ google, map }">
   	  <app-polyline
-        v-for="line in lines"
-        :key="line.id"
-        :path.sync="line.path"
+        :polyline="polyline"
         :google="google"
         :map="map">
   	  </app-polyline>
@@ -26,13 +24,13 @@
       appPolyline: Polyline
     },
     props: {
-      lines: Array
+      polyline: String
     },
     computed: {
       mapConfig() {
         return {
           ...mapSettings,
-          center: { lat: 5, lng: 99 }
+          center: { lat: 0, lng: 0 }
         };
       }
     }

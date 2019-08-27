@@ -38,14 +38,9 @@ const LINE_SYMBOL_CONFIG = {
 const LINE_PATH_CONFIG = {
   clickable: false,
   geodesic: false,
-  strokeOpacity: 0,
-  strokeColor: COLORS.LINE,
-  icons: [
-    {
-      icon: LINE_SYMBOL_CONFIG,
-      repeat: "10px"
-    }
-  ]
+  strokeOpacity: 1.0,
+  strokeWeight: 3,
+  strokeColor: '#f44'
 };
 
 const mapSettings = {
@@ -58,9 +53,9 @@ const mapSettings = {
   zoomControlOptions: {
     style: "SMALL"
   },
-  zoom: 2,
+  zoom: 3,
   minZoom: 2,
-  maxZoom: 14,
+  maxZoom: 22,
   mapTypeId: 'satellite',
   styles: [
     {

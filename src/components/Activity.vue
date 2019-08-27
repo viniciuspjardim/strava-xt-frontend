@@ -1,10 +1,8 @@
 <template>
   <div>
-    <h4>{{ activityName }}</h4>
-    <app-map class="gmap" :lines="lines">
-    </app-map>
-    <h5>Polyline</h5>
-    <p>{{ polyline }}</p>
+    <h4 v-if="activityName">{{ activityName }}</h4>
+    <h4 v-else>&nbsp;</h4>
+    <app-map class="gmap" :polyline="polyline"></app-map>
   </div>
 </template>
 
@@ -15,17 +13,7 @@
     data() {
       return {
         activityName: '',
-        polyline: '',
-        lines: [
-          {
-            id: '1',
-            path: [{ lat: 3, lng: 101 }, { lat: 5, lng: 99 }]
-          },
-          {
-            id: '2',
-            path: [{ lat: 5, lng: 99 }, { lat: 6, lng: 97 }]
-          }
-        ]
+        polyline: ''
       };
     },
     methods: {
@@ -35,7 +23,6 @@
           let data = await res.json();
           this.activityName = data.name;
           this.polyline = data.map.polyline;
-          console.log(data);
         }
         catch(err) {
           console.log(err);
@@ -54,6 +41,6 @@
 <style scoped>
   .gmap {
     height: 400px !important;
-    width: 70%;
+    width: 100%;
   }
 </style>
