@@ -16,7 +16,7 @@
 <script>
   import MapLoader from './MapLoader';
   import Polyline from './Polyline'
-  import { mapSettings } from '../constants/mapSettings';
+  import { mapSettings } from '../../constants/mapSettings';
 
   export default {
     components: {

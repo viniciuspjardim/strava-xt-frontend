@@ -7,7 +7,7 @@
 </template>
 
 <script>
-  import Map from './Map';
+  import Map from '../maps/Map';
 
   export default {
     data() {

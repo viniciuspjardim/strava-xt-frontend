@@ -1,8 +1,8 @@
 import Home from './components/Home';
-import Activities from './components/Activities';
-import Activity from './components/Activity';
+import Activities from './components/activities/Activities';
+import Activity from './components/activities/Activity';
 import GearCalculator from './components/GearCalculator';
-import Map from './components/Map';
+import Map from './components/maps/Map';
 
 export const routes = [
   { path: '', component: Home },
