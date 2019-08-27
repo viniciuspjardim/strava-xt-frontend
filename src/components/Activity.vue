@@ -2,7 +2,7 @@
   <div>
     <h4 v-if="activityName">{{ activityName }}</h4>
     <h4 v-else>&nbsp;</h4>
-    <app-map class="gmap" :polyline="polyline"></app-map>
+    <app-map class="gmap" :polylines="polylines"></app-map>
   </div>
 </template>
 
@@ -13,7 +13,7 @@
     data() {
       return {
         activityName: '',
-        polyline: ''
+        polylines: []
       };
     },
     methods: {
@@ -22,7 +22,12 @@
           let res = await this.$http.get(`activities/${ this.$route.params.id }`);
           let data = await res.json();
           this.activityName = data.name;
-          this.polyline = data.map.polyline;
+          this.polylines.push(data.map.polyline);
+
+          // Test code.. adding another polyline to the array
+          res = await this.$http.get(`activities/2496304013`);
+          data = await res.json();
+          this.polylines.push(data.map.polyline);
         }
         catch(err) {
           console.log(err);

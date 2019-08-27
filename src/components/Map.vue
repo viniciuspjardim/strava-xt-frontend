@@ -5,7 +5,7 @@
     class="gmap">
     <template slot-scope="{ google, map }">
   	  <app-polyline
-        :polyline="polyline"
+        :polylines="polylines"
         :google="google"
         :map="map">
   	  </app-polyline>
@@ -24,7 +24,7 @@
       appPolyline: Polyline
     },
     props: {
-      polyline: String
+      polylines: Array
     },
     computed: {
       mapConfig() {

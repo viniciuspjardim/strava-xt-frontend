@@ -11,28 +11,35 @@
         type: Object,
         required: true
       },
-      polyline: {
-        type: String,
+      polylines: {
+        type: Array,
         required: true
       }
     },
     watch: {
-      polyline() {
-        this.draw();
+      polylines() {
+        const p = [];
+        this.polylines.forEach(element => {
+          p.push(this.draw(element));
+        });
+        
+        if(p.length > 0) {
+          this.zoomToObject(p[0]);
+        }
       }
     },
     methods: {
-      draw() {
+      draw(pl) {
         const { Polyline } = this.google.maps;
         const { decodePath } = this.google.maps.geometry.encoding;
-        const decodedPath = decodePath(this.polyline);
+        const decodedPath = decodePath(pl);
 
         const p = new Polyline({
           path: decodedPath,
           map: this.map,
           ...LINE_PATH_CONFIG
         });
-        this.zoomToObject(p);
+        return p;
       },
       zoomToObject(obj) {
         const bounds = new this.google.maps.LatLngBounds();
