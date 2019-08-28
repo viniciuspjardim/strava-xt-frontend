@@ -32,11 +32,12 @@
       draw(pl) {
         const { Polyline } = this.google.maps;
         const { decodePath } = this.google.maps.geometry.encoding;
-        const decodedPath = decodePath(pl);
+        const decodedPath = decodePath(pl.polyline);
 
         const p = new Polyline({
           path: decodedPath,
           map: this.map,
+          strokeColor: pl.color,
           ...LINE_PATH_CONFIG
         });
         return p;

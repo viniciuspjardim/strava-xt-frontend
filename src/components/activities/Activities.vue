@@ -25,7 +25,15 @@
         class="list-group-item"
         v-for="activity in activities"
         :key="activity.id">
-        {{ `${ activity.name } - ${ activity.date }` }}
+        <h6>{{ activity.name }}</h6>
+        <div>
+          <i class="material-icons">calendar_today</i>
+          <span class="text-secondary">{{ activity.date }}</span>
+          <i class="material-icons ml-3">arrow_right_alt</i>
+          <span class="text-secondary">{{ activity.distance }}</span>
+          <i class="material-icons ml-3">speed</i>
+          <span class="text-secondary">{{ activity.vel }}</span>
+        </div>
       </router-link>
     </ul>
     <div v-else :class="messageClass" role="alert">
@@ -57,8 +65,10 @@
 
 <script>
   import moment from 'moment';
+  import { dataFormat } from '../../mixins/dataFormat';
 
   export default {
+    mixins: [dataFormat],
     data() {
       return {
         page: 1,
@@ -91,11 +101,12 @@
           console.log(data);
 
           data.forEach(activity => {
-            let date = moment(new Date(activity.start_date)).format('DD/MM/YYYY');
             this.activities.push({
               id: activity.id,
               name: activity.name,
-              date
+              date: this.dateToUsr(activity.start_date),
+              distance: this.distanceToUsr(activity.distance),
+              vel: this.velToUsr(activity.average_speed)
             });
           });
 

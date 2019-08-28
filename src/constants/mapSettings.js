@@ -39,8 +39,7 @@ const LINE_PATH_CONFIG = {
   clickable: false,
   geodesic: false,
   strokeOpacity: 1.0,
-  strokeWeight: 3,
-  strokeColor: '#f44'
+  strokeWeight: 3
 };
 
 const mapSettings = {

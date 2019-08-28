@@ -19,4 +19,8 @@
   body {
     overflow-y: scroll;
   }
+  i {
+    color: rgb(0, 0, 0, 0.4);
+    font-size: 1.2em !important;
+  }
 </style>
