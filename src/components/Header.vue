@@ -23,13 +23,36 @@
           <a class="nav-link">Map</a>
         </router-link>
       </ul>
+      <p v-if="this.$store.state.athlete">{{ this.$store.state.athlete.firstname }}</p>
+      <form class="form-inline ml-auto my-2 my-lg-0">
+        <button 
+          class="btn btn-outline-danger my-2 my-sm-0"
+          @click.prevent="stravaApi()">
+          Connect to Strava
+        </button>
+      </form>
     </div>
   </nav>
 </template>
 
 <script>
   export default {
-    
+    methods: {
+      async stravaApi() {
+        try {
+          let res = await this.$http.get('auth/stravalogin', {});
+          let data = await res.json();
+          window.location.href = data.url;
+        }
+        catch(err) {
+          console.log(err);
+          // localStorage.removeItem('stravaCode');
+          // localStorage.removeItem('stravaKey');
+          // localStorage.removeItem('athlete');
+          // localStorage.removeItem('activities');
+        }
+      }
+    }
   }
 </script>
 

@@ -7,7 +7,8 @@ export const store = new Vuex.Store({
   state: {
     logedIn: false,
     stravaCode: null,
-    stravaKey: null,
+    stravaToken: null,
+    jwtEncoded: null,
     athlete: null,
     activities: [],
     activitiesFilter: {
