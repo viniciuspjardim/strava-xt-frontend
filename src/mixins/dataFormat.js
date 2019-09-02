@@ -5,13 +5,17 @@ import numeral from 'numeral';
 export const dataFormat = {
   data() {
     return {
-      usrVelUnit: 'km/h',
+      // Strava API units
       apiVelUnit: 'm/s',
-      usrDistanceUnit: 'km',
       apiDistanceUnit: 'm',
-      usrTimeUnit: 'h',
       apiTimeUnit: 's',
 
+      // App default units
+      usrVelUnit: 'km/h',
+      usrDistanceUnit: 'km',
+      usrTimeUnit: 'h',
+
+      // App default masks
       usrDateMask: 'DD/MM/YYYY',
       usrNumberMask: '0.0'
     };
@@ -26,19 +30,20 @@ export const dataFormat = {
       }
       return null;
     },
-    distanceToUsr(value, unit) {
-      if(!unit) {
-        unit = this.usrDistanceUnit;
-      }
+    distanceToUsr(value, unit = this.usrDistanceUnit) {
       if(unit == 'km') {
         return `${this.numberToUsr(value / 1000)} km`;
       }
+      return null;
     },
     dateToUsr(value, mask) {
       if(!mask) {
         mask = this.usrDateMask;
       }
       return moment(new Date(value)).format(mask);
+    },
+    timeToUsr(value) {
+      return numeral(value).format('00:00:00');
     },
     numberToUsr(value, mask) {
       if(!mask) {

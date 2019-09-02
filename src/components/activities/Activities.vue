@@ -29,6 +29,8 @@
         <div>
           <i class="material-icons">calendar_today</i>
           <span class="text-secondary">{{ activity.date }}</span>
+          <i class="material-icons ml-3">schedule</i>
+          <span class="text-secondary">{{ activity.time }}</span>
           <i class="material-icons ml-3">arrow_right_alt</i>
           <span class="text-secondary">{{ activity.distance }}</span>
           <i class="material-icons ml-3">speed</i>
@@ -71,46 +73,43 @@
     mixins: [dataFormat],
     data() {
       return {
-        page: 1,
-        maxDate: null,
-        minDate: null,
         message: {
           text: 'Loading...',
           type: 'alert'
-        },
-        activities: []
+        }
       };
     },
     methods: {
       async loadActivities(page) {
         try {
-          this.page = page;
+          if(page) {
+            this.page = page;
+          }
           let before = moment(this.maxDate, 'DD/MM/YYYY');
           let after = moment(this.minDate, 'DD/MM/YYYY');
 
           let params = {
-            page,
+            page: this.page,
             before: before.isValid() ? before.format('X') : null,
             after: after.isValid() ? after.format('X') : null
           };
 
           let res = await this.$http.get('activities/', { params });
           let data = await res.json();
-          this.activities = [];
-
-          console.log(data);
+          this.$store.state.activities = [];
 
           data.forEach(activity => {
-            this.activities.push({
+            this.$store.state.activities.push({
               id: activity.id,
               name: activity.name,
               date: this.dateToUsr(activity.start_date),
+              time: this.timeToUsr(activity.moving_time),
               distance: this.distanceToUsr(activity.distance),
               vel: this.velToUsr(activity.average_speed)
             });
           });
 
-          if(this.activities.length == 0) {
+          if(this.$store.state.activities.length == 0) {
             this.message.text = 'No activityes found.';
             this.message.type = 'alert';
           }
@@ -123,12 +122,39 @@
       }
     },
     computed: {
+      activities() {
+        return this.$store.state.activities;
+      },
+      page: {
+        get(){
+          return this.$store.state.activitiesFilter.page;
+        },
+        set(value) {
+          this.$store.state.activitiesFilter.page = value;
+        }
+      },
+      maxDate: {
+        get(){
+          return this.$store.state.activitiesFilter.maxDate;
+        },
+        set(value) {
+          this.$store.state.activitiesFilter.maxDate = value;
+        }
+      },
+      minDate: {
+        get(){
+          return this.$store.state.activitiesFilter.minDate;
+        },
+        set(value) {
+          this.$store.state.activitiesFilter.minDate = value;
+        }
+      },
       messageClass() {
         return this.message.type == 'error' ? 'alert alert-danger' : 'alert alert-primary';
       }
     },
     created() {
-      this.loadActivities(1);
+      this.loadActivities();
     }
   };
 </script>
