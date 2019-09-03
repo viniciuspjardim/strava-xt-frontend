@@ -38,7 +38,7 @@
         </div>
       </router-link>
     </ul>
-    <div v-else :class="messageClass" role="alert">
+    <div v-if="message.visible" :class="messageClass" role="alert">
       {{ message.text }}
     </div>
     <br>
@@ -69,11 +69,15 @@
   import moment from 'moment';
   import { dataFormat } from '../../mixins/dataFormat';
 
+  // TODO: activities list showing even when they should not
+  // when using the back button from a activity page.
+  // Probably a vuex related problem
   export default {
     mixins: [dataFormat],
     data() {
       return {
         message: {
+          visible: true,
           text: 'Loading...',
           type: 'alert'
         }
@@ -112,12 +116,18 @@
           if(this.$store.state.activities.length == 0) {
             this.message.text = 'No activityes found.';
             this.message.type = 'alert';
+            this.message.visible = true;
+          }
+          else {
+            this.message.visible = false;
           }
         }
         catch(err) {
           console.log(err);
+          this.$store.state.activities = [];
           this.message.text = 'Error loading activities!';
           this.message.type = 'error';
+          this.message.visible = true;
         }
       }
     },

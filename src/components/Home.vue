@@ -18,8 +18,7 @@
           if(!this.$store.state.jwtEncoded) {
             throw new Error('Unable to get JWT');
           }
-          this.$store.state.athlete = jwtDecode(this.$store.state.jwtEncoded).strava.athlete;
-          console.log(this.$store.state.athlete);
+          this.$store.state.athlete = jwtDecode(this.$store.state.jwtEncoded).athlete;
         }
         catch(err) {
           console.log(err);

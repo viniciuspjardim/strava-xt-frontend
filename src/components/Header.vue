@@ -23,9 +23,13 @@
           <a class="nav-link">Map</a>
         </router-link>
       </ul>
-      <p v-if="this.$store.state.athlete">{{ this.$store.state.athlete.firstname }}</p>
       <form class="form-inline ml-auto my-2 my-lg-0">
-        <button 
+        <button v-if="this.$store.state.jwtEncoded"
+          class="btn btn-outline-danger my-2 my-sm-0"
+          @click.prevent="">
+          {{ this.$store.state.athlete.firstname }}
+        </button>
+        <button v-else
           class="btn btn-outline-danger my-2 my-sm-0"
           @click.prevent="stravaApi()">
           Connect to Strava
@@ -46,10 +50,6 @@
         }
         catch(err) {
           console.log(err);
-          // localStorage.removeItem('stravaCode');
-          // localStorage.removeItem('stravaKey');
-          // localStorage.removeItem('athlete');
-          // localStorage.removeItem('activities');
         }
       }
     }
