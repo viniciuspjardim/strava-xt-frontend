@@ -8,9 +8,9 @@ import { store } from './store/store';
 Vue.use(VueResource);
 Vue.use(VueRouter);
 Vue.http.interceptors.push((request, next) => {
-  const authToken = store.state.jwtEncoded;
-  if(authToken) {
-    request.headers.set('x-auth-token', authToken);
+  const token = store.state.auth.token;
+  if(token) {
+    request.headers.set('x-auth-token', token);
   }
   next();
 });

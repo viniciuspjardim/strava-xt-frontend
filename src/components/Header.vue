@@ -24,36 +24,27 @@
         </router-link>
       </ul>
       <form class="form-inline ml-auto my-2 my-lg-0">
-        <button v-if="this.$store.state.jwtEncoded"
+        <router-link v-if="this.$store.state.auth.token"
           class="btn btn-outline-danger my-2 my-sm-0"
+          to="/auth/?logout=true"
+          tag="button"
           @click.prevent="">
-          {{ this.$store.state.athlete.firstname }}
-        </button>
-        <button v-else
+          {{ this.$store.state.auth.athlete.firstname }}
+        </router-link>
+        <router-link v-else
           class="btn btn-outline-danger my-2 my-sm-0"
-          @click.prevent="stravaApi()">
+          to="/auth"
+          tag="button"
+          @click.prevent="">
           Connect to Strava
-        </button>
+        </router-link>
       </form>
     </div>
   </nav>
 </template>
 
 <script>
-  export default {
-    methods: {
-      async stravaApi() {
-        try {
-          let res = await this.$http.get('auth/stravalogin', {});
-          let data = await res.json();
-          window.location.href = data.url;
-        }
-        catch(err) {
-          console.log(err);
-        }
-      }
-    }
-  }
+
 </script>
 
 <style scoped>

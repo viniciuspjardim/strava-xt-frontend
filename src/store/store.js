@@ -5,10 +5,10 @@ Vue.use(Vuex);
 
 export const store = new Vuex.Store({
   state: {
-    stravaCode: null,
-    stravaToken: null,
-    jwtEncoded: null,
-    athlete: null,
+    auth: {
+      token: null,
+      athlete: null
+    },
     activities: [],
     activitiesFilter: {
       page: 1,
