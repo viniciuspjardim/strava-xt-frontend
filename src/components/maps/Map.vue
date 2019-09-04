@@ -24,7 +24,10 @@
       appPolyline: Polyline
     },
     props: {
-      polylines: Array
+      polylines: {
+        type: Array,
+        default: () => []
+      }
     },
     computed: {
       mapConfig() {
