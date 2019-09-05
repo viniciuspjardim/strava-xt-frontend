@@ -66,6 +66,8 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex';
+  import { mapMutations } from 'vuex';
   import moment from 'moment';
   import { dataFormat } from '../../mixins/dataFormat';
 
@@ -84,6 +86,7 @@
       };
     },
     methods: {
+      ...mapMutations(['setActivities']),
       async loadActivities(page) {
         try {
           if(page) {
@@ -100,10 +103,10 @@
 
           let res = await this.$http.get('activities/', { params });
           let data = await res.json();
-          this.$store.state.activities = [];
+          this.setActivities([]);
 
           data.forEach(activity => {
-            this.$store.state.activities.push({
+            this.activities.push({
               id: activity.id,
               name: activity.name,
               date: this.dateToUsr(activity.start_date),
@@ -113,7 +116,7 @@
             });
           });
 
-          if(this.$store.state.activities.length == 0) {
+          if(this.activities.length == 0) {
             this.message.text = 'No activityes found.';
             this.message.type = 'alert';
             this.message.visible = true;
@@ -124,7 +127,7 @@
         }
         catch(err) {
           console.log(err);
-          this.$store.state.activities = [];
+          this.setActivities([]);
           this.message.text = 'Error loading activities!';
           this.message.type = 'error';
           this.message.visible = true;
@@ -132,11 +135,9 @@
       }
     },
     computed: {
-      activities() {
-        return this.$store.state.activities;
-      },
+      ...mapGetters(['activities']),
       page: {
-        get(){
+        get() {
           return this.$store.state.activitiesFilter.page;
         },
         set(value) {
@@ -144,7 +145,7 @@
         }
       },
       maxDate: {
-        get(){
+        get() {
           return this.$store.state.activitiesFilter.maxDate;
         },
         set(value) {
@@ -152,7 +153,7 @@
         }
       },
       minDate: {
-        get(){
+        get() {
           return this.$store.state.activitiesFilter.minDate;
         },
         set(value) {

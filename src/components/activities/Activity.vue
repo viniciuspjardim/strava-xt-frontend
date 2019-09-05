@@ -26,14 +26,6 @@
             polyline: data.map.polyline,
             color: '#f44'
           });
-
-          // Test code.. adding another polyline to the array
-          res = await this.$http.get(`activities/2496304013`);
-          data = await res.json();
-          this.polylines.push({
-            polyline: data.map.polyline,
-            color: '#04f'
-          });
         }
         catch(err) {
           console.log(err);

@@ -15,5 +15,30 @@ export const store = new Vuex.Store({
       maxDate: null,
       minDate: null
     }
+  },
+  getters: {
+    isLoggedIn: state => {
+      if(state.auth.token) return true;
+      else return false;
+    },
+    athlete: state => {
+      return state.auth.athlete;
+    },
+    activities: state => {
+      return state.activities;
+    }
+  },
+  mutations: {
+    login: (state, payload) => {
+      state.auth.token = payload.token;
+      state.auth.athlete = payload.athlete;
+    },
+    logout: state => {
+      state.auth.token = null;
+      state.auth.athlete = null;
+    },
+    setActivities: (state, payload) => {
+      state.activities = payload;
+    }
   }
 });

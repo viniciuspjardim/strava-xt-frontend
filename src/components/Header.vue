@@ -12,7 +12,6 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
-
         <router-link class="nav-item" to="/activities" tag="li" active-class="active">
           <a class="nav-link">My Activities</a>
         </router-link>
@@ -24,13 +23,11 @@
         </router-link>
       </ul>
       <form class="form-inline ml-auto my-2 my-lg-0">
-        <router-link v-if="this.$store.state.auth.token"
+        <button v-if="isLoggedIn"
           class="btn btn-outline-danger my-2 my-sm-0"
-          to="/auth/?logout=true"
-          tag="button"
-          @click.prevent="">
-          {{ this.$store.state.auth.athlete.firstname }}
-        </router-link>
+          @click.prevent="logout()">
+          {{ athlete.firstname }}
+        </button>
         <router-link v-else
           class="btn btn-outline-danger my-2 my-sm-0"
           to="/auth"
@@ -44,7 +41,17 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex';
+  import { mapMutations } from 'vuex';
 
+  export default {
+    computed: {
+      ...mapGetters(['isLoggedIn', 'athlete'])
+    },
+    methods: {
+      ...mapMutations(['logout'])
+    }
+  }
 </script>
 
 <style scoped>

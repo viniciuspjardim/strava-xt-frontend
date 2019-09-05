@@ -5,6 +5,7 @@
 </template>
 
 <script>
+  import { mapMutations } from 'vuex';
   import jwtDecode from 'jwt-decode';
 
   export default {
@@ -20,17 +21,11 @@
           if(!token) throw new Error('Unable to get JWT');
           const athlete = jwtDecode(token).athlete;
           // Register auth data into Vuex
-          const authData = { token, athlete };
-          this.$store.state.auth = authData;
+          this.login({ token, athlete });
         }
         catch(err) {
           console.log(err);
         }
-      }
-      // When logout parameter is defined, clear auth data
-      else if(this.$route.query.logout) {
-        this.$store.state.auth.token = null;
-        this.$store.state.auth.athlete = null;
       }
       // When there is no query parameters redirect to the
       // Strava website to authenticate and authorize this app
@@ -44,6 +39,9 @@
           console.log(err);
         }
       }
+    },
+    methods: {
+      ...mapMutations(['login'])
     }
   }
 </script>
