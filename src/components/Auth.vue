@@ -1,9 +1,3 @@
-<template>
-  <div>
-    <h4>Auth</h4>
-  </div>
-</template>
-
 <script>
   import { mapMutations } from 'vuex';
   import jwtDecode from 'jwt-decode';
@@ -14,22 +8,33 @@
 
       // When redirected from Strava it suply the code parameter
       if(q.code) {
+        this.fetchLoginData(q.code);
+      }
+      // When there is no query parameters redirect to the
+      // Strava website to authenticate and authorize this app
+      else {
+        this.redirectToStrava();
+      }
+    },
+    methods: {
+      ...mapMutations(['login']),
+
+      async fetchLoginData(code) {
         try {
           // Fetching auth data from the server
-          const res = await this.$http.get('auth/', { params: { code: q.code } });
+          const res = await this.$http.get('auth/', { params: { code } });
           const token = res.headers.get('x-auth-token');
           if(!token) throw new Error('Unable to get JWT');
           const athlete = jwtDecode(token).athlete;
           // Register auth data into Vuex
           this.login({ token, athlete });
+          this.$router.push('home').catch(err => {});
         }
         catch(err) {
           console.log(err);
         }
-      }
-      // When there is no query parameters redirect to the
-      // Strava website to authenticate and authorize this app
-      else {
+      },
+      async redirectToStrava() {
         try {
           const res = await this.$http.get('auth/stravalogin', {});
           const data = await res.json();
@@ -40,12 +45,6 @@
         }
       }
     },
-    methods: {
-      ...mapMutations(['login'])
-    }
+    render() {}
   }
 </script>
-
-<style scoped>
-
-</style>
