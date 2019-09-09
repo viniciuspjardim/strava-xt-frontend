@@ -1,13 +1,23 @@
 <template>
   <div>
-    <h4 v-if="activityName">{{ activityName }}</h4>
+    <h4 v-if="activityName">
+      {{ activityName }}
+      <button type="button"
+        class="btn btn-primary btn-sm"
+        data-toggle="modal"
+        data-target="#exampleModalLong">
+        compare
+      </button>
+    </h4>
     <h4 v-else>&nbsp;</h4>
+    <app-activity-selector></app-activity-selector>
     <app-map class="gmap" :polylines="polylines"></app-map>
   </div>
 </template>
 
 <script>
   import Map from '../maps/Map';
+  import ActivitySelector from './ActivitySelector';
 
   export default {
     data() {
@@ -33,7 +43,8 @@
       }
     },
     components: {
-      appMap: Map
+      appMap: Map,
+      appActivitySelector: ActivitySelector
     },
     created() {
       this.loadActivity();
@@ -43,6 +54,7 @@
 
 <style scoped>
   .gmap {
+    margin-top: 12px;
     height: 400px !important;
     width: 100%;
   }
