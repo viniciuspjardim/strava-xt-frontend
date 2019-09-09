@@ -25,17 +25,7 @@
         class="list-group-item"
         v-for="activity in activities"
         :key="activity.id">
-        <h6>{{ activity.name }}</h6>
-        <div>
-          <i class="material-icons">calendar_today</i>
-          <span class="text-secondary">{{ activity.date }}</span>
-          <i class="material-icons ml-3">schedule</i>
-          <span class="text-secondary">{{ activity.time }}</span>
-          <i class="material-icons ml-3">arrow_right_alt</i>
-          <span class="text-secondary">{{ activity.distance }}</span>
-          <i class="material-icons ml-3">speed</i>
-          <span class="text-secondary">{{ activity.vel }}</span>
-        </div>
+        <app-activities-item :activity="activity"></app-activities-item>
       </router-link>
     </ul>
     <div v-if="message.visible" :class="messageClass" role="alert">
@@ -70,12 +60,16 @@
   import { mapMutations } from 'vuex';
   import moment from 'moment';
   import { dataFormat } from '../../mixins/dataFormat';
+  import ActivitiesItem from './ActivitiesItem';
 
   // TODO: activities list showing even when they should not
   // when using the back button from a activity page.
   // Probably a vuex related problem
   export default {
     mixins: [dataFormat],
+    components: {
+      appActivitiesItem: ActivitiesItem
+    },
     data() {
       return {
         message: {
