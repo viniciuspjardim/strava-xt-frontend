@@ -1,12 +1,12 @@
 <template>
-  <div class="container">
+  <div>
     <app-header></app-header>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
-  import Header from './components/Header';
+  import Header from './components/header/Header';
 
   export default {
     components: {
@@ -19,8 +19,7 @@
   body {
     overflow-y: scroll;
   }
-  i {
-    color: rgb(0, 0, 0, 0.4);
-    font-size: 1.2em !important;
+  a {
+    cursor: pointer;
   }
 </style>

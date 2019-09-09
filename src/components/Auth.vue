@@ -28,7 +28,7 @@
           const athlete = jwtDecode(token).athlete;
           // Register auth data into Vuex
           this.login({ token, athlete });
-          this.$router.push('home').catch(err => {});
+          this.$router.push('/').catch(err => {});
         }
         catch(err) {
           console.log(err);
