@@ -4,6 +4,7 @@ import Activities from './components/activities/Activities';
 import Activity from './components/activities/Activity';
 import GearCalculator from './components/GearCalculator';
 import Map from './components/maps/Map';
+import Elevation from './components/charts/Elevation';
 
 export const routes = [
   { path: '', component: Home },
@@ -12,5 +13,6 @@ export const routes = [
   { path: '/activities/:id', component: Activity },
   { path: '/gear', component: GearCalculator },
   { path: '/map', component: Map },
+  { path: '/elevation', component: Elevation},
   { path: '*', redirect: '/' }
 ];

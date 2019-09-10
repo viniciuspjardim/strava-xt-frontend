@@ -17,6 +17,7 @@
     "extension"
   ],
   "dependencies": {
+    "chart.js": "^2.8.0",
     "google-maps-api-loader": "^1.1.1",
     "jwt-decode": "^2.2.0",
     "moment": "^2.24.0",

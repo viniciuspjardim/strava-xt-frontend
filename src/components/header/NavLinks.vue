@@ -9,6 +9,9 @@
     <router-link class="nav-item" to="/map" tag="li" active-class="active">
       <a class="nav-link">Map</a>
     </router-link>
+    <router-link class="nav-item" to="/elevation" tag="li" active-class="active">
+      <a class="nav-link">Elevation</a>
+    </router-link>
   </ul>
 </template>
 
