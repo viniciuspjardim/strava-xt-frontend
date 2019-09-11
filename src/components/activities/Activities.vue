@@ -28,9 +28,7 @@
         <app-activities-item :activity="activity"></app-activities-item>
       </router-link>
     </ul>
-    <div v-if="message.visible" :class="messageClass" role="alert">
-      {{ message.text }}
-    </div>
+    <app-message></app-message>
     <br>
     <hr>
     <nav aria-label="Page navigation example">
@@ -61,6 +59,7 @@
   import moment from 'moment';
   import { dataFormat } from '../../mixins/dataFormat';
   import ActivitiesItem from './ActivitiesItem';
+  import Message from '../Message';
 
   // TODO: activities list showing even when they should not
   // when using the back button from a activity page.
@@ -68,19 +67,11 @@
   export default {
     mixins: [dataFormat],
     components: {
-      appActivitiesItem: ActivitiesItem
-    },
-    data() {
-      return {
-        message: {
-          visible: true,
-          text: 'Loading...',
-          type: 'alert'
-        }
-      };
+      appActivitiesItem: ActivitiesItem,
+      appMessage: Message
     },
     methods: {
-      ...mapMutations(['setActivities']),
+      ...mapMutations(['setActivities', 'showMessage', 'clearMessage']),
       async loadActivities(page) {
         try {
           if(page) {
@@ -111,20 +102,16 @@
           });
 
           if(this.activities.length == 0) {
-            this.message.text = 'No activityes found.';
-            this.message.type = 'alert';
-            this.message.visible = true;
+            this.showMessage({ text: 'No activityes found.', type: 'alert' });
           }
           else {
-            this.message.visible = false;
+            this.clearMessage();
           }
         }
         catch(err) {
           console.log(err);
           this.setActivities([]);
-          this.message.text = 'Error loading activities!';
-          this.message.type = 'error';
-          this.message.visible = true;
+          this.showMessage({ text: 'Error loading activities!', type: 'error' });
         }
       }
     },
@@ -153,9 +140,6 @@
         set(value) {
           this.$store.state.activitiesFilter.minDate = value;
         }
-      },
-      messageClass() {
-        return this.message.type == 'error' ? 'alert alert-danger' : 'alert alert-primary';
       }
     },
     created() {

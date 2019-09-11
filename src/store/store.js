@@ -14,6 +14,11 @@ export const store = new Vuex.Store({
       page: 1,
       maxDate: null,
       minDate: null
+    },
+    message: {
+      text: null,
+      type: null,
+      visible: false
     }
   },
   getters: {
@@ -26,6 +31,9 @@ export const store = new Vuex.Store({
     },
     activities: state => {
       return state.activities;
+    },
+    message: state => {
+      return state.message;
     }
   },
   mutations: {
@@ -39,6 +47,15 @@ export const store = new Vuex.Store({
     },
     setActivities: (state, payload) => {
       state.activities = payload;
+    },
+    showMessage: (state, payload) => {
+      state.message.text = payload.text;
+      state.message.type = payload.type | 'info';
+      state.message.visible = true;
+      console.log(state.message);
+    },
+    clearMessage: state => {
+      state.message.visible = false;
     }
   }
 });
