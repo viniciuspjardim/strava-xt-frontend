@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nav class="navbar navbar-expand-lg fixed-top navbar-transparent " color-on-scroll="300">
+    <nav class="navbar navbar-expand-lg fixed-top navbar-transparent tpadd" color-on-scroll="300">
       <div class="container">
         <div class="navbar-translate">
           <router-link class="navbar-brand" to="/">Strava Vue</router-link>
@@ -76,3 +76,9 @@
     }
   }
 </script>
+
+<style scoped>
+  .tpadd {
+    padding-top: 0;
+  }
+</style>
