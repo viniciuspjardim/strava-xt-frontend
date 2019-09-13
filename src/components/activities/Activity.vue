@@ -1,5 +1,7 @@
 <template>
   <div>
+    <app-activity-selector></app-activity-selector>
+    <app-map class="gmap" :polylines="polylines"></app-map>
     <h4 v-if="activityName">
       {{ activityName }}
       <button type="button"
@@ -10,14 +12,14 @@
       </button>
     </h4>
     <h4 v-else>&nbsp;</h4>
-    <app-activity-selector></app-activity-selector>
-    <app-map class="gmap" :polylines="polylines"></app-map>
+    <app-elevation></app-elevation>
   </div>
 </template>
 
 <script>
   import Map from '../maps/Map';
   import ActivitySelector from './ActivitySelector';
+  import Elevation from '../charts/Elevation';
 
   export default {
     data() {
@@ -54,7 +56,8 @@
     },
     components: {
       appMap: Map,
-      appActivitySelector: ActivitySelector
+      appActivitySelector: ActivitySelector,
+      appElevation: Elevation
     },
     created() {
       this.loadActivity(this.$route.params.id);

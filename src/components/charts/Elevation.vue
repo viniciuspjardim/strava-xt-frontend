@@ -33,11 +33,12 @@
           document.getElementById("chartjs"),
           this.chartData
         );
-        this.addToChart(await this.loadElevation(2688883313));
-        this.clearMessage();
+        if(this.$route.params.id) {
+          this.addToChart(await this.loadElevation(this.$route.params.id));
+          this.clearMessage();
+        }
       }
       catch(err) {
-        console.log('Err 1');
         this.showMessage({ text: 'Could not load elevation data', type: 'error' });
       }
     },
