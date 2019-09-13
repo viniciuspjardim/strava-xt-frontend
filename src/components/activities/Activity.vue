@@ -23,18 +23,28 @@
     data() {
       return {
         activityName: '',
-        polylines: []
+        polylines: [],
+        colors: ['#f44', '#4c4', '#44f', '#848', '#666']
       };
     },
+    watch: {
+      $route(to, from) {
+        for(let key in to.query) {
+          this.polylines.length = 1;
+          this.loadActivity(parseInt(key));
+        }
+      }
+    },
     methods: {
-      async loadActivity() {
+      async loadActivity(id) {
         try {
-          let res = await this.$http.get(`activities/${ this.$route.params.id }`);
+          let res = await this.$http.get(`activities/${ id }`);
           let data = await res.json();
           this.activityName = data.name;
           this.polylines.push({
+            id: data.id,
             polyline: data.map.polyline,
-            color: '#f44'
+            color: this.colors[this.polylines.length]
           });
         }
         catch(err) {
@@ -47,7 +57,7 @@
       appActivitySelector: ActivitySelector
     },
     created() {
-      this.loadActivity();
+      this.loadActivity(this.$route.params.id);
     }
   }
 </script>

@@ -19,14 +19,15 @@
     </form>
     <hr>
     <ul class="list-group" v-if="activities.length > 0">
-      <router-link
-        tag="li"
-        :to="`/activities/${ activity.id }`"
-        class="list-group-item"
+      <li
+        :class="['list-group-item',
+          isSelected(activity.id) ? 'selected' : '']"
         v-for="activity in activities"
-        :key="activity.id">
-        <app-activities-item :activity="activity"></app-activities-item>
-      </router-link>
+        :key="activity.id"
+        @click="activityClick(activity.id)">
+        <app-activities-item :activity="activity">
+        </app-activities-item>
+      </li>
     </ul>
     <app-message></app-message>
     <br>
@@ -61,9 +62,6 @@
   import ActivitiesItem from './ActivitiesItem';
   import Message from '../Message';
 
-  // TODO: activities list showing even when they should not
-  // when using the back button from a activity page.
-  // Probably a vuex related problem
   export default {
     mixins: [dataFormat],
     components: {
@@ -113,6 +111,31 @@
           this.setActivities([]);
           this.showMessage({ text: 'Error loading activities!', type: 'error' });
         }
+      },
+      activityClick(id) {
+        // If in ten activities route, navigate to the activity
+        if(this.$route.path == '/activities') {
+          this.$router.push(`/activities/${id}`).catch(err => {});
+        }
+        // Else, mark the activity as a selected activity in the
+        // query params. If already selected, remove selection
+        else {
+          let q = { ...this.$route.query };
+          if(this.isSelected(id))
+            delete q[`${id}`];
+          else {
+            q[`${id}`] = 'y';
+          }
+          this.$router.push({ query: q }).catch(err => {});
+        }
+      },
+      isSelected(id) {
+        let q = this.$route.query;
+        if(q[`${id}`] && q[`${id}`] == 'y')
+          return true;
+        else {
+          return false;
+        }
       }
     },
     computed: {
@@ -151,5 +174,9 @@
 <style scoped>
   li {
     cursor: pointer;
+  }
+  .selected {
+    border-left: 14px solid rgb(81, 203, 206);
+    transition: 0.2s;
   }
 </style>
