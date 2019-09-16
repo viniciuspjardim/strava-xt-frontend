@@ -12,6 +12,9 @@
   import Message from '../Message';
 
   export default {
+    props: {
+      activities: Object
+    },
     components: {
       appMessage: Message
     },
@@ -19,10 +22,22 @@
       return {
         chart: null,
         chartData: {
-          type: "bar",
+          type: "line",
           data: {
             labels: [0],
             datasets: [{ label: ' altitude', data: [0] }]
+          },
+          options: {
+            scales: {
+              xAxes: [{
+                ticks: {
+                  autoSkip: true,
+                  maxTicksLimit: 10,
+                  maxRotation: 0,
+                  padding: 6
+                }
+              }]
+            }
           }
         }
       };
@@ -33,9 +48,11 @@
           document.getElementById("chartjs"),
           this.chartData
         );
-        if(this.$route.params.id) {
-          this.addToChart(await this.loadElevation(this.$route.params.id));
+        if(!this.activities && this.$route.params.id) {
+          this.overwriteChart(await this.loadElevation(this.$route.params.id));
           this.clearMessage();
+          // Test code
+          this.addToChart(await this.loadElevation(2697610173));
         }
       }
       catch(err) {
@@ -53,11 +70,26 @@
         };
       },
       addToChart(dataSet) {
+        this.chart.data.datasets.push(
+          {
+            label: ' altitude',
+            data: dataSet.altitude,
+            borderColor: 'rgba(255, 0, 0, 0.4)',
+            backgroundColor: 'rgba(255, 0, 0, 0.2)',
+            pointRadius: 0,
+          }
+        );
+        this.chart.update();
+      },
+      overwriteChart(dataSet) {
         this.chart.data.labels = dataSet.distance;
         this.chart.data.datasets = [
           {
             label: ' altitude',
-            data: dataSet.altitude
+            data: dataSet.altitude,
+            borderColor: 'rgba(0, 0, 255, 0.4)',
+            backgroundColor: 'rgba(0, 0, 255, 0.2)',
+            pointRadius: 0,
           }
         ];
         this.chart.update();
