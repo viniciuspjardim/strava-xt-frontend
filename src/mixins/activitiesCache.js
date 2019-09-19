@@ -4,23 +4,65 @@ export const activitiesCache = {
     return {
       main: null,
       selected: [],
-      cache: {}
+      cache: {},
+      colors: [
+        { color: '#f44', id: null },
+        { color: '#4c4', id: null },
+        { color: '#44f', id: null },
+        { color: '#848', id: null },
+        { color: '#CCC', id: null }
+      ]
     }
   },
   methods: {
     selectionChange(s) {
       // Adding new selected elements
-      s.forEach(element => {
-        if(this.selected.indexOf(element) == -1) {
-          this.selected.push(element);
+      s.forEach(activityId => {
+        if(this.selected.indexOf(activityId) == -1) {
+          this.selected.push(activityId);
+          this.bindColor(activityId);
         }
       });
       // Removing new unselected elements
-      this.selected.forEach((element, i) => {
-        if(s.indexOf(element) == -1) {
+      this.selected.forEach((activityId, i) => {
+        if(s.indexOf(activityId) == -1) {
           this.selected.splice(i, 1);
+          this.freeColor(activityId);
         }
       });
+      if(this.main) this.colors[0].id = this.main;
+    },
+    addToCache(activity) {
+      this.cache[`${activity.id}`] = activity;
+    },
+    hasOnCache(activityId) {
+      if(this.cache[`${activityId}`]) return true;
+      return false;
+    },
+    bindColor(activityId) {
+      for(let i = 0; i < this.colors.length; i++) {
+        if(!this.colors[i].id) {
+          this.colors[i].id = activityId;
+          return this.colors[i].color;
+        }
+      }
+      return '#AAA';
+    },
+    freeColor(activityId) {
+      for(let i = 0; i < this.colors.length; i++) {
+        if(this.colors[i].id == activityId) {
+          this.colors[i].id = null;
+          return;
+        }
+      }
+    },
+    getColor(activityId) {
+      for(let i = 0; i < this.colors.length; i++) {
+        if(this.colors[i].id == activityId) {
+          return this.colors[i].color;
+        }
+      }
+      return '#AAA';
     }
   }
 }

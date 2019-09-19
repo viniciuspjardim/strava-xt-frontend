@@ -16,15 +16,20 @@
         required: true
       }
     },
+    data() {
+      return {
+        gpolylines: []
+      };
+    },
     watch: {
       polylines() {
-        const p = [];
+        this.clear();
         this.polylines.forEach(element => {
-          p.push(this.draw(element));
+          this.gpolylines.push(this.draw(element));
         });
         
-        if(p.length > 0) {
-          this.zoomToObject(p[0]);
+        if(this.gpolylines.length > 0) {
+          this.zoomToObject(this.gpolylines[0]);
         }
       }
     },
@@ -45,11 +50,16 @@
       zoomToObject(obj) {
         const bounds = new this.google.maps.LatLngBounds();
         const points = obj.getPath().getArray();
-
         for (var n = 0; n < points.length ; n++){
             bounds.extend(points[n]);
         }
         this.map.fitBounds(bounds);
+      },
+      clear() {
+        this.gpolylines.forEach((pl, i) => {
+          if(i == 0) return;
+          pl.setMap(null);
+        });
       }
     },
     render() {}

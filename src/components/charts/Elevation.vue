@@ -52,7 +52,7 @@
           this.overwriteChart(await this.loadElevation(this.$route.params.id));
           this.clearMessage();
           // Test code
-          this.addToChart(await this.loadElevation(2697610173));
+          this.addToChart(await this.loadElevation(2688883313));
         }
       }
       catch(err) {

@@ -18,40 +18,70 @@
 
 <script>
   import Map from '../maps/Map';
+  import { activitiesCache } from '../../mixins/activitiesCache';
   import ActivitySelector from './ActivitySelector';
   import Elevation from '../charts/Elevation';
 
   export default {
+    mixins: [activitiesCache],
     data() {
       return {
         activityName: '',
         polylines: [],
-        colors: ['#f44', '#4c4', '#44f', '#848', '#666']
       };
     },
     watch: {
       $route(to, from) {
-        for(let key in to.query) {
-          this.polylines.length = 1;
-          this.loadActivity(parseInt(key));
-        }
+        this.routeChange(to);
+        this.update();
       }
     },
     methods: {
       async loadActivity(id) {
         try {
-          let res = await this.$http.get(`activities/${ id }`);
-          let data = await res.json();
-          this.activityName = data.name;
-          this.polylines.push({
-            id: data.id,
-            polyline: data.map.polyline,
-            color: this.colors[this.polylines.length]
-          });
+          const res = await this.$http.get(`activities/${ id }`);
+          const activity = await res.json();
+          activity.color = this.getColor(activity.id);
+          return activity;
         }
         catch(err) {
           console.log(err);
         }
+      },
+      routeChange(to) {
+        const selection = [];
+        // Load activityes that are not in the cache
+        for(let key in to.query) {
+          selection.push(parseInt(key));
+        }
+        this.selectionChange(selection);
+      },
+      // TODO: refector this method
+      async update() {
+        // Creating promises array with activities that
+        // are not in the cache
+        const promisses = [];
+        this.selected.forEach(activityId => {
+          if(!this.cache[`${activityId}`]) {
+            promisses.push(this.loadActivity(activityId));
+          }
+        });
+        // Awaiting them to load
+        const activities = await Promise.all(promisses);
+        // Adding them to the cache
+        activities.forEach(activity => {
+          this.addToCache(activity);
+        });
+        // Creating the polylines
+        this.polylines = [];
+        this.selected.forEach(activityId => {
+          const polyline = {
+            id: activityId,
+            polyline: this.cache[`${activityId}`].map.polyline,
+            color: this.cache[`${activityId}`].color
+          };
+          this.polylines.push(polyline);
+        });
       }
     },
     components: {
@@ -59,8 +89,13 @@
       appActivitySelector: ActivitySelector,
       appElevation: Elevation
     },
-    created() {
-      this.loadActivity(this.$route.params.id);
+    async created() {
+      this.selectionChange([this.$route.params.id]);
+      this.main = this.$route.params.id;
+      const mainObj = await this.loadActivity(this.$route.params.id);
+      this.activityName = mainObj.name;
+      this.addToCache(mainObj);
+      this.update();
     }
   }
 </script>
