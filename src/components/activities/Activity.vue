@@ -17,11 +17,14 @@
 </template>
 
 <script>
+  import { RepositoryFactory } from '../../repository/RepositoryFactory';
   import Map from '../maps/Map';
   import { activitiesCache } from '../../mixins/activitiesCache';
   import ActivitySelector from './ActivitySelector';
   import Elevation from '../charts/Elevation';
 
+  const ActivitiesRepository =  RepositoryFactory.get('activities');
+  
   export default {
     mixins: [activitiesCache],
     data() {
@@ -39,10 +42,9 @@
     methods: {
       async loadActivity(id) {
         try {
-          const res = await this.$http.get(`activities/${ id }`);
-          const activity = await res.json();
-          activity.color = this.getColor(activity.id);
-          return activity;
+          const { data } = await ActivitiesRepository.getActivity(id);
+          data.color = this.getColor(data.id);
+          return data;
         }
         catch(err) {
           console.log(err);
