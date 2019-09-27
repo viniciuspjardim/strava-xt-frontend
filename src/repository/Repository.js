@@ -1,17 +1,20 @@
 import axios from 'axios';
 import { store } from '../store/store';
 
-const baseDomain = 'http://localhost:3000';
-const baseURL = `${baseDomain}/api`;
+const instance = axios.create({
+  baseURL: 'http://localhost:3000/api',
+  timeout: 5000,
+  params: {}
+});
 
-let headers;
-const token = store.state.auth.token;
-if(token) {
-  headers = { 'x-auth-token': token };
-  console.log('token');
-}
-else {
-  console.log('no token');
-}
+instance.interceptors.request.use((config) => {
+  const token = store.state.auth.token;
+  if(token) {
+    config.headers['x-auth-token'] = token;
+  }
+  return config;
+}, (err) => {
+  return Promise.reject(err);
+});
 
-export default axios.create({ baseURL, headers });
+export default instance;
