@@ -64,7 +64,7 @@
         // are not in the cache
         const promisses = [];
         this.selected.forEach(activityId => {
-          if(!this.cache[`${activityId}`]) {
+          if(!this.hasOnCache(activityId)) {
             promisses.push(this.loadActivity(activityId));
           }
         });
@@ -74,13 +74,14 @@
         activities.forEach(activity => {
           this.addToCache(activity);
         });
-        // Creating the polylines
+        
         this.polylines = [];
+        // Creating the polylines
         this.selected.forEach(activityId => {
           const polyline = {
             id: activityId,
-            polyline: this.cache[`${activityId}`].map.polyline,
-            color: this.cache[`${activityId}`].color
+            polyline: this.getFromCache(activityId).map.polyline,
+            color: this.getFromCache(activityId).color
           };
           this.polylines.push(polyline);
         });

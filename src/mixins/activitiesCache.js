@@ -4,7 +4,7 @@ export const activitiesCache = {
     return {
       main: null,
       selected: [],
-      cache: {},
+      cache: new Map(),
       colors: [
         { color: '#f44', id: null },
         { color: '#4c4', id: null },
@@ -32,12 +32,14 @@ export const activitiesCache = {
       });
       if(this.main) this.colors[0].id = this.main;
     },
-    addToCache(activity) {
-      this.cache[`${activity.id}`] = activity;
-    },
     hasOnCache(activityId) {
-      if(this.cache[`${activityId}`]) return true;
-      return false;
+      return this.cache.has(String(activityId));
+    },
+    getFromCache(activityId) {
+      return this.cache.get(String(activityId));
+    },
+    addToCache(activity) {
+      this.cache.set(String(activity.id), activity);
     },
     bindColor(activityId) {
       for(let i = 0; i < this.colors.length; i++) {
