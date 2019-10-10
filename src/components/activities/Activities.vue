@@ -55,12 +55,15 @@
 </template>
 
 <script>
+  import { RepositoryFactory } from '../../repository/RepositoryFactory';
   import { mapGetters } from 'vuex';
   import { mapMutations } from 'vuex';
   import moment from 'moment';
   import { dataFormat } from '../../mixins/dataFormat';
   import ActivitiesItem from './ActivitiesItem';
   import Message from '../Message';
+
+  const ActivitiesRepository =  RepositoryFactory.get('activities');
 
   export default {
     mixins: [dataFormat],
@@ -84,8 +87,7 @@
             after: after.isValid() ? after.format('X') : null
           };
 
-          let res = await this.$http.get('activities/', { params });
-          let data = await res.json();
+          const { data } = await ActivitiesRepository.get({ params });
           this.setActivities([]);
 
           data.forEach(activity => {

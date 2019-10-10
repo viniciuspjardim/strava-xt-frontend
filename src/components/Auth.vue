@@ -1,6 +1,9 @@
 <script>
+  import { RepositoryFactory } from '../repository/RepositoryFactory';
   import { mapMutations } from 'vuex';
   import jwtDecode from 'jwt-decode';
+
+  const AuthRepository =  RepositoryFactory.get('auth');
 
   export default {
     async created() {
@@ -22,8 +25,8 @@
       async fetchLoginData(code) {
         try {
           // Fetching auth data from the server
-          const res = await this.$http.get('auth/', { params: { code } });
-          const token = res.headers.get('x-auth-token');
+          const { headers } = await AuthRepository.get({ params: { code } });
+          const token = headers['x-auth-token'];
           if(!token) throw new Error('Unable to get JWT');
           const athlete = jwtDecode(token).athlete;
           // Register auth data into Vuex
@@ -36,8 +39,7 @@
       },
       async redirectToStrava() {
         try {
-          const res = await this.$http.get('auth/stravalogin', {});
-          const data = await res.json();
+          const { data } = await AuthRepository.getLogin();
           window.location.href = data.url;
         }
         catch(err) {

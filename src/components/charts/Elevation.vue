@@ -7,9 +7,12 @@
 </template>
 
 <script>
+  import { RepositoryFactory } from '../../repository/RepositoryFactory';
   import { mapMutations } from 'vuex';
   import Chart from 'chart.js';
   import Message from '../Message';
+
+  const StreamsRepository =  RepositoryFactory.get('streams');
 
   export default {
     props: {
@@ -51,8 +54,6 @@
         if(!this.activities && this.$route.params.id) {
           this.overwriteChart(await this.loadElevation(this.$route.params.id));
           this.clearMessage();
-          // Test code
-          this.addToChart(await this.loadElevation(2688883313));
         }
       }
       catch(err) {
@@ -62,8 +63,7 @@
     methods: {
       ...mapMutations(['showMessage', 'clearMessage']),
       async loadElevation(activityId) {
-        const res = await this.$http.get(`streams/activity/${ activityId }`);
-        const data = await res.json();
+        const { data } = await StreamsRepository.getAltitude(activityId);
         return {
           altitude: data[0].data,
           distance: data[1].data
