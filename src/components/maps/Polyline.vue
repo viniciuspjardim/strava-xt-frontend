@@ -18,7 +18,8 @@
     },
     data() {
       return {
-        gpolylines: []
+        gpolylines: [],
+        canZoom: true
       };
     },
     watch: {
@@ -28,8 +29,9 @@
           this.gpolylines.push(this.draw(element));
         });
         
-        if(this.gpolylines.length > 0) {
+        if(this.gpolylines.length > 0 && this.canZoom) {
           this.zoomToObject(this.gpolylines[0]);
+          this.canZoom = false;
         }
       }
     },
