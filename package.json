@@ -1,6 +1,6 @@
 {
-  "name": "strava-edit-frontend",
-  "description": "Edit multiple activities in Strava",
+  "name": "strava-xt-frontend",
+  "description": "Compare multiple activities in Strava",
   "version": "0.1.0",
   "author": "Vinícius P. Jardim <viniciuspjardim@gmail.com>",
   "license": "MIT",
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/viniciuspjardim/strava-edit-frontend.git"
+    "url": "git+https://github.com/viniciuspjardim/strava-xt-frontend.git"
   },
   "keywords": [
     "strava",

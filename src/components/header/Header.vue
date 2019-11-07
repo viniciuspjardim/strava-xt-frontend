@@ -3,7 +3,7 @@
     <nav class="navbar navbar-expand-lg fixed-top navbar-transparent tpadd" color-on-scroll="300">
       <div class="container">
         <div class="navbar-translate">
-          <router-link class="navbar-brand" to="/">Strava Vue</router-link>
+          <router-link class="navbar-brand" to="/">Strava XT</router-link>
           <button class="navbar-toggler navbar-toggler"
             type="button"
             data-toggle="collapse"
@@ -54,10 +54,10 @@
       <div class="content-center">
         <div class="container">
           <div class="title-brand">
-            <h1 class="presentation-title">Strava Vue</h1>
+            <h1 class="presentation-title">Strava XT</h1>
           </div>
           <h2 class="presentation-subtitle text-center">
-            Edit and compare multiple activities from Strava
+            Compare multiple activities in Strava
           </h2>
         </div>
       </div>

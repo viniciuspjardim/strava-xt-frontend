@@ -1,3 +1,3 @@
-# Strava Edit - Frontend
+# Strava XT - Front-end
 
-Edit multiple activities in Strava.
+Compare multiple activities in Strava.
