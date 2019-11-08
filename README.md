@@ -14,6 +14,7 @@ Multiple activities can be selected at the same time. They
 are plotted in the same map and in the same charts for comparison.
 
 Comparing the elevation of two rides:
+
 <img src="https://user-images.githubusercontent.com/1520962/68496666-a0a45a00-0231-11ea-84d9-41159fbbec75.png" width="640"> 
 
 This feature helps you to compare the same ride you did twice,
@@ -21,6 +22,7 @@ by showing the data side by side, but also give you a perspective on
 different rides.
 
 Selecting multiple activities:
+
 <img src="https://user-images.githubusercontent.com/1520962/68496669-a13cf080-0231-11ea-9f28-59048b90015f.png" width="640">
 
 ## Features
