@@ -74,8 +74,8 @@
           {
             label: ' altitude',
             data: dataSet.altitude,
-            borderColor: 'rgba(255, 0, 0, 0.4)',
-            backgroundColor: 'rgba(255, 0, 0, 0.2)',
+            borderColor: 'rgba(0, 0, 255, 0.5)',
+            backgroundColor: 'rgba(0, 0, 255, 0.3)',
             pointRadius: 0,
           }
         );
@@ -87,8 +87,8 @@
           {
             label: ' altitude',
             data: dataSet.altitude,
-            borderColor: 'rgba(0, 0, 255, 0.4)',
-            backgroundColor: 'rgba(0, 0, 255, 0.2)',
+            borderColor: 'rgba(255, 0, 0, 0.4)',
+            backgroundColor: 'rgba(255, 0, 0, 0.2)',
             pointRadius: 0,
           }
         ];

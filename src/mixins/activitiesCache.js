@@ -7,8 +7,8 @@ export const activitiesCache = {
       cache: new Map(),
       colors: [
         { color: '#f44', id: null },
-        { color: '#4c4', id: null },
         { color: '#44f', id: null },
+        { color: '#4c4', id: null },
         { color: '#848', id: null },
         { color: '#CCC', id: null }
       ]
