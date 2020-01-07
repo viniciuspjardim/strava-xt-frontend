@@ -18,8 +18,7 @@
 
   export default {
     props: {
-      mapConfig: Object,
-      apiKey: String
+      mapConfig: Object
     },
     data() {
       return {
@@ -30,7 +29,7 @@
     async mounted() {
       const googleMapApi = await GoogleMapsApiLoader({
         libraries: ['geometry'],
-        apiKey: this.apiKey
+        apiKey: process.env.VUE_APP_MAPS_KEY
       });
       this.google = googleMapApi;
       this.initializeMap();

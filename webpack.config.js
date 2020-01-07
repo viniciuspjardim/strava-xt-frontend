@@ -1,5 +1,6 @@
-var path = require('path')
-var webpack = require('webpack')
+const path = require('path')
+const webpack = require('webpack')
+const Dotenv = require('dotenv-webpack')
 
 module.exports = {
   entry: ['@babel/polyfill', './src/main.js'],
@@ -55,6 +56,8 @@ module.exports = {
   },
   devtool: '#eval-source-map'
 }
+
+module.exports.plugins = [new Dotenv()]
 
 if (process.env.NODE_ENV === 'production') {
   module.exports.devtool = '#source-map'
