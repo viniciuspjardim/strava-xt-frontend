@@ -37,6 +37,11 @@ export const store = new Vuex.Store({
     }
   },
   mutations: {
+    initialiseStore(state) {
+			if(localStorage.getItem('auth')) {
+				Object.assign(state.auth, JSON.parse(localStorage.getItem('auth')));
+			}
+		},
     login: (state, payload) => {
       state.auth.token = payload.token;
       state.auth.athlete = payload.athlete;
@@ -57,5 +62,11 @@ export const store = new Vuex.Store({
     clearMessage: state => {
       state.message.visible = false;
     }
+  }
+});
+
+store.subscribe((mutation, state) => {
+  if(mutation.type === 'login' || mutation.type === 'logout') {
+    localStorage.setItem('auth', JSON.stringify(state.auth));
   }
 });
