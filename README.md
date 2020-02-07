@@ -1,4 +1,4 @@
-# Strava XT - Front-end
+# Strava XT - Frontend
 
 Strava XT is a web app that allow you to compare multiple Strava
 activities. It uses the Strava V3 API to get the athlete data.
@@ -7,8 +7,10 @@ Currently this app can login into Strava using OAuth 2.0
 and list the athlete activities like rides, runs, hikes and more.
 
 The user can see the activity info like speed, moving time, distance,
-etc. It also plots the GPS data on the map using Google Maps API and
-draw the elevation data using Chart.js.
+etc. It also plots the GPS data on the map using
+[Google Maps API](https://developers.google.com/maps/documentation/javascript/tutorial)
+and draw the elevation data using
+[Chart.js](https://www.chartjs.org/).
 
 Multiple activities can be selected at the same time. They
 are plotted in the same map and in the same charts for comparison.
@@ -37,8 +39,27 @@ Selecting multiple activities:
 
 > The app is in pre-alpha state and is a personal project to learn Vue.js.
 
-> This repository is the front-end part of the app. The back-end can be found [here](https://github.com/viniciuspjardim/strava-xt-backend).
+> This repository is the frontend part of the app. The backend can be found [here](https://github.com/viniciuspjardim/strava-xt-backend).
 
 ## Gallery
 
 See other images of the app [here](gallery.md).
+
+## Config and running
+
+Clone the project, switch to the project folder and run:
+```shell
+npm install
+```
+
+First, run the [backend project](https://github.com/viniciuspjardim/strava-xt-backend), then...
+
+To run this project use:
+```shell
+npm run dev
+```
+
+To run the tests use:
+```shell
+npm test
+```
