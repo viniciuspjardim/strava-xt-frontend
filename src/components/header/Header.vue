@@ -49,7 +49,7 @@
       </div>
     </nav>
     <div class="page-header section-dark"
-      style="background-image: url('./assets/img/vinicius-jardim.jpg')">
+      style="background-image: url('/assets/img/vinicius-jardim.jpg')">
       <div class="filter"></div>
       <div class="content-center">
         <div class="container">
