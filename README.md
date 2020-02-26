@@ -50,6 +50,7 @@ See other images of the app [here](gallery.md).
 
 The following environment variable may be set to run the app:
 
+- `VUE_APP_API_URL` - The URL of where backend project is running;
 - `VUE_APP_MAPS_KEY` - Your Google Maps API key. If you don't set it, the map still loads,
 but with warnings.
 

@@ -1,8 +1,13 @@
 import axios from 'axios';
 import { store } from '../store/store';
 
+let backendURL = process.env.VUE_APP_API_URL;
+if(!backendURL) {
+  backendURL = 'http://localhost:3000';
+}
+
 const instance = axios.create({
-  baseURL: 'http://localhost:3000/api',
+  baseURL: `${backendURL}/api`,
   timeout: 5000,
   params: {}
 });
