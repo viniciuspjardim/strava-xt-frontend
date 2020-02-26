@@ -12,7 +12,7 @@
       </button>
     </h4>
     <h4 v-else>&nbsp;</h4>
-    <app-elevation></app-elevation>
+    <app-elevation :activities='selected'></app-elevation>
   </div>
 </template>
 

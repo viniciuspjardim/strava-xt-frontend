@@ -16,7 +16,7 @@
 
   export default {
     props: {
-      activities: Object
+      activities: Array
     },
     components: {
       appMessage: Message
@@ -51,13 +51,25 @@
           document.getElementById("chartjs"),
           this.chartData
         );
-        if(!this.activities && this.$route.params.id) {
+        if(this.$route.params.id) {
           this.overwriteChart(await this.loadElevation(this.$route.params.id));
           this.clearMessage();
         }
       }
       catch(err) {
         this.showMessage({ text: 'Could not load elevation data', type: 'error' });
+      }
+    },
+    watch: {
+      async activities() {
+        const el = [];
+        if(this.$route.params.id) {
+          this.overwriteChart(await this.loadElevation(this.$route.params.id));
+        }
+
+        this.activities.forEach(async (activity) => {
+          this.addToChart(await this.loadElevation(activity));
+        });
       }
     },
     methods: {
