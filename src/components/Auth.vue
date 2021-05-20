@@ -9,7 +9,7 @@
     async created() {
       const q = { ...this.$route.query };
 
-      // When redirected from Strava it suply the code parameter
+      // When redirected from Strava it supply the code parameter
       if(q.code) {
         this.fetchLoginData(q.code);
       }

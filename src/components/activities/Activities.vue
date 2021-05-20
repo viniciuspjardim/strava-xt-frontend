@@ -102,7 +102,7 @@
           });
 
           if(this.activities.length == 0) {
-            this.showMessage({ text: 'No activityes found.', type: 'alert' });
+            this.showMessage({ text: 'No activities found.', type: 'alert' });
           }
           else {
             this.clearMessage();
