@@ -18,8 +18,8 @@
     "extension"
   ],
   "dependencies": {
-    "axios": "^0.19.0",
-    "chart.js": "^2.8.0",
+    "axios": "^0.21.1",
+    "chart.js": "^2.9.4",
     "dotenv-webpack": "^1.7.0",
     "google-maps-api-loader": "^1.1.1",
     "jwt-decode": "^2.2.0",
