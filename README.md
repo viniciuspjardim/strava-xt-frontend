@@ -20,7 +20,7 @@ are plotted in the same map and in the same charts for comparison.
 
 #### Comparing the elevation of two rides:
 
-<img src="https://user-images.githubusercontent.com/1520962/68496666-a0a45a00-0231-11ea-84d9-41159fbbec75.png" width="640"> 
+<img src="https://user-images.githubusercontent.com/1520962/68496666-a0a45a00-0231-11ea-84d9-41159fbbec75.png" width="640">
 
 This feature helps you to compare the same ride you did twice,
 by showing the data side by side, but also give you a perspective on
@@ -48,20 +48,22 @@ See other images of the app [here](gallery.md).
 
 ## Config and running
 
-The following environment variable may be set to run the app:
-
-- `VUE_APP_API_URL` - The URL of where backend project is running;
-- `VUE_APP_MAPS_KEY` - Your Google Maps API key. If you don't set it, the map still loads,
-but with warnings.
-
 Clone the project, switch to the project folder and run:
 ```shell
 npm install
 ```
 
-First, run the [backend project](https://github.com/viniciuspjardim/strava-xt-backend), then...
+The following environment variables must be set to run the app:
 
-To run this project use:
+- `VUE_APP_API_URL` - the URL of where backend project is running;
+- `VUE_APP_MAPS_KEY` - your Google Maps API key. If you don't set it, the map still loads,
+but with warnings.
+
+> You can use a `.env` file to set these variables. See the example file `.env.example`.
+
+Then, run the [backend project](https://github.com/viniciuspjardim/strava-xt-backend).
+
+Finally, to run this project use:
 ```shell
 npm run dev
 ```
